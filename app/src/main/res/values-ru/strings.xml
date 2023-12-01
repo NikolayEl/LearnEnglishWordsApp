@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">УчитьАнглийский</string>
+    <string name="button_skip">Пропустить</string>
+    <string name="title_correct">Правильно!</string>
+    <string name="title_wrong">Не правильно!</string>
+    <string name="button_continue">Продолжить</string>
+</resources>
