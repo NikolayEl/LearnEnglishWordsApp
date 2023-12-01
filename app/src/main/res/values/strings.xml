@@ -4,4 +4,5 @@
     <string name="title_correct">Correct!</string>
     <string name="title_wrong">Wrong!</string>
     <string name="button_continue">Continue</string>
+    <string name="question_exit">Do you want to exit?</string>
 </resources>

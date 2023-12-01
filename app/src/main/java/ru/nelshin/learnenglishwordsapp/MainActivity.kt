@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root) //Меняем на получение корневого элемента разметки
 
         var answer: Boolean = false
+        var tempAnswer:Boolean = true
+        var exitQuestion:Boolean = true
         val tempMap = inputData(R.raw.base)
         var counterWords: Int = 0
-        val tempPrintSet = mutableSetOf<String>()
-        val printSet = mutableListOf<String>()
         val englishWords = mutableListOf<String>()
         val answerLauout1 =
             AnswerLauout(binding.llAnswer1, binding.tvVariantNumber1, binding.tvVariantValue1)
@@ -48,6 +48,15 @@ class MainActivity : AppCompatActivity() {
         fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
 
         markAnswerNeutral()
+
+        binding.btnClose.setOnClickListener{
+            //finishAffinity()
+            binding.llQuestionExitProgramm.isVisible = true
+            tempAnswer = answer
+            answer = true
+            exitQuestion = false
+
+        }
         binding.llAnswer1.setOnClickListener {
             if (!answer) {
                 if (wordChek(
@@ -113,21 +122,38 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.btnContinue.setOnClickListener {
-            markAnswerNeutral()
+            if(exitQuestion){
+                markAnswerNeutral()
 
-            if (counterWords < englishWords.size) {
-                counterWords++
-                fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
-                answer = false
+                if (counterWords < englishWords.size) {
+                    counterWords++
+                    fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
+                    answer = false
+                }
             }
         }
         binding.btnSkip.setOnClickListener {
-            markAnswerNeutral()
-            if (counterWords < englishWords.size) {
-                counterWords++
-                fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
-                answer = false
+            if(exitQuestion){
+                markAnswerNeutral()
+                if (counterWords < englishWords.size) {
+                    counterWords++
+                    fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
+                    answer = false
+                }
             }
+        }
+        binding.btnCloseQuestion.setOnClickListener{
+            binding.llQuestionExitProgramm.isVisible = false
+            answer = tempAnswer
+            exitQuestion = true
+        }
+        binding.btnAnswerNoExit.setOnClickListener {
+            binding.llQuestionExitProgramm.isVisible = false
+            answer = tempAnswer
+            exitQuestion = true
+        }
+        binding.btnAnswerYesExit.setOnClickListener {
+            finishAffinity()
         }
 
     }
