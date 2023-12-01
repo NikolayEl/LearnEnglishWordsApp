@@ -2,17 +2,18 @@ package ru.nelshin.learnenglishwordsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import ru.nelshin.learnenglishwordsapp.databinding.ActivityMainBinding
+import kotlin.random.Random
+import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
+    private val random = Random
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
@@ -24,57 +25,185 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root) //Меняем на получение корневого элемента разметки
 
         var answer: Boolean = false
+        val tempMap = inputData(R.raw.base)
+        var counterWords: Int = 0
+        val tempPrintSet = mutableSetOf<String>()
+        val printSet = mutableListOf<String>()
+        val englishWords = mutableListOf<String>()
+        val answerLauout1 =
+            AnswerLauout(binding.llAnswer1, binding.tvVariantNumber1, binding.tvVariantValue1)
+        val answerLauout2 =
+            AnswerLauout(binding.llAnswer2, binding.tvVariantNumber2, binding.tvVariantValue2)
+        val answerLauout3 =
+            AnswerLauout(binding.llAnswer3, binding.tvVariantNumber3, binding.tvVariantValue3)
+        val answerLauout4 =
+            AnswerLauout(binding.llAnswer4, binding.tvVariantNumber4, binding.tvVariantValue4)
+        val layoutAll: List<AnswerLauout> =
+            listOf(answerLauout1, answerLauout2, answerLauout3, answerLauout4)
+
+        tempMap.forEach {
+            englishWords.add(it.key)
+        }
+
+        fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
 
         markAnswerNeutral()
-        binding.llAnswer3.setOnClickListener {
-            if (!answer) {
-                markAnswerCorrect(
-                    binding.llAnswer3,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
-                answer = true
-            }
-        }
         binding.llAnswer1.setOnClickListener {
             if (!answer) {
-                markAnswerWrong(
-                    binding.llAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                if (wordChek(
+                        binding.tvVariantValue1.text.toString(),
+                        tempMap,
+                        englishWords[counterWords]
+                    )
+                ) {
+                    markAnswerCorrect(layoutAll, 0)
+                } else {
+                    markAnswerWrong(layoutAll, 0)
+                    highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
+                }
                 answer = true
             }
         }
         binding.llAnswer2.setOnClickListener {
             if (!answer) {
-                markAnswerWrong(
-                    binding.llAnswer2,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                if (wordChek(
+                        binding.tvVariantValue2.text.toString(),
+                        tempMap,
+                        englishWords[counterWords]
+                    )
+                ) {
+                    markAnswerCorrect(layoutAll, 1)
+                } else {
+                    markAnswerWrong(layoutAll, 1)
+                    highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
+                }
+                answer = true
+            }
+        }
+        binding.llAnswer3.setOnClickListener {
+            if (!answer) {
+                if (wordChek(
+                        binding.tvVariantValue3.text.toString(),
+                        tempMap,
+                        englishWords[counterWords]
+                    )
+                ) {
+                    markAnswerCorrect(layoutAll, 2)
+                } else {
+                    markAnswerWrong(layoutAll, 2)
+                    highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
+                }
                 answer = true
             }
         }
         binding.llAnswer4.setOnClickListener {
             if (!answer) {
-                markAnswerWrong(
-                    binding.llAnswer4,
-                    binding.tvVariantNumber4,
-                    binding.tvVariantValue4
-                )
+                if (wordChek(
+                        binding.tvVariantValue4.text.toString(),
+                        tempMap,
+                        englishWords[counterWords]
+                    )
+                ) {
+                    markAnswerCorrect(layoutAll, 3)
+                } else {
+                    markAnswerWrong(layoutAll, 3)
+                    highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
+                }
                 answer = true
             }
         }
         binding.btnContinue.setOnClickListener {
             markAnswerNeutral()
-            answer = false
+
+            if (counterWords < englishWords.size) {
+                counterWords++
+                fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
+                answer = false
+            }
         }
         binding.btnSkip.setOnClickListener {
             markAnswerNeutral()
-            answer = false
+            if (counterWords < englishWords.size) {
+                counterWords++
+                fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
+                answer = false
+            }
         }
 
+    }
+
+    private fun highlightTheCorrectAnswer(
+        linerLayoutAll: List<AnswerLauout>,
+        map: MutableMap<String, String>,
+        key: String
+    ) {
+        var index: Int = 0
+        linerLayoutAll.forEach {
+            if (it.tvVariantValues.text == map.get(key)) {
+                it.llAnswers.background = ContextCompat.getDrawable(
+                    this@MainActivity,
+                    R.drawable.shape_rounded_containers_correct
+                )
+
+                it.tvVariantNumbers.background = ContextCompat.getDrawable(
+                    this@MainActivity,
+                    R.drawable.shape_rounded_variants_correct
+                )
+
+                it.tvVariantNumbers.setTextColor(
+                    ContextCompat.getColor(
+                        this@MainActivity,
+                        R.color.white
+                    )
+                )
+
+                it.tvVariantValues.setTextColor(
+                    ContextCompat.getColor(
+                        this@MainActivity,
+                        R.color.correctVariantValue
+                    )
+                )
+            } else
+                index++
+        }
+    }
+
+    private fun wordChek(text: String, map: MutableMap<String, String>, key: String): Boolean {
+        return map.get(key) == text
+    }
+
+    private fun fillingWordsOnTheScreen(
+        tempMap: MutableMap<String, String>,
+        key: String
+    ) {
+        val tempPrintSet = mutableSetOf<String>()
+        val list = mutableListOf<String>()
+
+        tempPrintSet.add(tempMap.get(key).toString())
+        while (tempPrintSet.size < 4) {
+            tempPrintSet.add(tempMap.random().value)
+        }
+        tempPrintSet.shuffled().forEach {
+            list.add(it)
+        }
+
+        binding.tvQuestionWord.text = key
+        binding.tvVariantValue1.text = list[0]
+        binding.tvVariantValue2.text = list[1]
+        binding.tvVariantValue3.text = list[2]
+        binding.tvVariantValue4.text = list[3]
+    }
+
+    private fun <T, U> Map<T, U>.random(): Map.Entry<T, U> = entries.elementAt(random.nextInt(size))
+
+    private fun inputData(idFile: Int): MutableMap<String, String> {
+        val map = mutableMapOf<String, String>()
+        val inputStream: InputStream = resources.openRawResource(idFile)
+        inputStream.bufferedReader().forEachLine {
+            val (englishVershion, russianVersion) = it.split(';', ignoreCase = false, limit = 2)
+            map.put(englishVershion, russianVersion)
+        }
+        return map
     }
 
     private fun markAnswerNeutral() {
@@ -134,25 +263,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun markAnswerCorrect(ll: LinearLayout, tvNumber: TextView, tvValues: TextView) {
-        ll.background = ContextCompat.getDrawable(
+    private fun markAnswerCorrect(linerLayoutAll: List<AnswerLauout>, index: Int) {
+        linerLayoutAll[index].llAnswers.background = ContextCompat.getDrawable(
             this@MainActivity,
             R.drawable.shape_rounded_containers_correct
         )
 
-        tvNumber.background = ContextCompat.getDrawable(
+        linerLayoutAll[index].tvVariantNumbers.background = ContextCompat.getDrawable(
             this@MainActivity,
             R.drawable.shape_rounded_variants_correct
         )
 
-        tvNumber.setTextColor(
+        linerLayoutAll[index].tvVariantNumbers.setTextColor(
             ContextCompat.getColor(
                 this@MainActivity,
                 R.color.white
             )
         )
 
-        tvValues.setTextColor(
+        linerLayoutAll[index].tvVariantValues.setTextColor(
             ContextCompat.getColor(
                 this@MainActivity,
                 R.color.correctVariantValue
@@ -184,25 +313,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun markAnswerWrong(ll: LinearLayout, tvNumber: TextView, tvValues: TextView) {
-        ll.background = ContextCompat.getDrawable(
+    private fun markAnswerWrong(linerLayoutAll: List<AnswerLauout>, index: Int) {
+        linerLayoutAll[index].llAnswers.background = ContextCompat.getDrawable(
             this,
             R.drawable.shape_rounded_containers_wrong
         )
 
-        tvNumber.background = ContextCompat.getDrawable(
+        linerLayoutAll[index].tvVariantNumbers.background = ContextCompat.getDrawable(
             this,
             R.drawable.shape_rounded_variants_wrong
         )
 
-        tvNumber.setTextColor(
+        linerLayoutAll[index].tvVariantNumbers.setTextColor(
             ContextCompat.getColor(
                 this,
                 R.color.white
             )
         )
 
-        tvValues.setTextColor(
+        linerLayoutAll[index].tvVariantValues.setTextColor(
             ContextCompat.getColor(
                 this,
                 R.color.wrongVariantValue
