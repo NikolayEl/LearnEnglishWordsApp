@@ -20,8 +20,87 @@
 
     </ImageButton>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clScoresBar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnClose">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_correct"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/tvCorrectAnswerCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/rubik_regular"
+            android:text="0"
+            android:textColor="@color/correctVariantValue"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvSkipAnswerCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/rubik_regular"
+            android:text="0"
+            android:textColor="@color/buttonBlueColor"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvWrongAnswerCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/rubik_regular"
+            android:text="0"
+            android:textColor="@color/wrongVariantValue"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_wrong"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/llBlockWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="33dp"
@@ -166,13 +245,13 @@
 
             <TextView
                 android:id="@+id/tvVariantValue4"
+                style="@style/TextViewVariantsStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
                 android:text="Утюг"
-                style="@style/TextViewVariantsStyle"
                 tools:ignore="HardcodedText">
 
             </TextView>
@@ -203,12 +282,12 @@
         android:id="@+id/llQuestionExitProgramm"
         android:layout_width="300dp"
         android:layout_height="170dp"
+        android:background="@drawable/shape_rounded_variants_correct"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/clCorrectContinue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuestionWord"
-        android:visibility="gone"
-        android:background="@drawable/shape_rounded_variants_correct">
+        app:layout_constraintTop_toBottomOf="@+id/tvQuestionWord">
 
         <ImageButton
             android:id="@+id/btnCloseQuestion"
@@ -230,12 +309,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/rubik_regular"
             android:gravity="center_horizontal"
-            android:text="Do you want to exit?"
             android:textColor="@color/white"
             android:textSize="30sp"
+            android:text="@string/title_question"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCloseQuestion" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCloseQuestion"/>
 
         <android.widget.Button
             android:id="@+id/btnAnswerNoExit"
@@ -245,25 +324,27 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_button_future"
             android:backgroundTint="@color/white"
-            android:text="No"
-            android:textSize="20sp"
             android:fontFamily="@font/nunito_bold"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:text="@string/button_no"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"/>
 
         <android.widget.Button
             android:id="@+id/btnAnswerYesExit"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="30dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/shape_button_future"
             android:backgroundTint="@color/white"
-            android:text="Yes"
-            android:textSize="20sp"
             android:fontFamily="@font/nunito_bold"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:text="@string/button_yes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -273,20 +354,20 @@
         android:layout_height="58dp"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="#2574FF"
-        android:background="@drawable/shape_button_future"
-        android:fontFamily="@font/nunito_bold"
         android:layout_marginTop="81dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shape_button_future"
+        android:backgroundTint="#2574FF"
+        android:fontFamily="@font/nunito_bold"
         android:text="@string/button_skip"
         android:textAllCaps="true"
-        android:textSize="16sp"
         android:textColor="@color/white"
+        android:textSize="16sp"
         android:visibility="gone"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/llBlockWords">
 
     </android.widget.Button>
 
@@ -299,7 +380,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/llBlockWords">
 
 
         <ImageView

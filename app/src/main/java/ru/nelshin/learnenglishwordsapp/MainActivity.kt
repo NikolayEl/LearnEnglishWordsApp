@@ -2,6 +2,8 @@ package ru.nelshin.learnenglishwordsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -9,11 +11,15 @@ import androidx.core.view.isVisible
 import ru.nelshin.learnenglishwordsapp.databinding.ActivityMainBinding
 import kotlin.random.Random
 import java.io.InputStream
+import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val random = Random
+    private lateinit var inAnimation: Animation
+    private lateinit var inAnimationSlowly: Animation
+    private lateinit var outAnimation: Animation
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
@@ -25,11 +31,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root) //Меняем на получение корневого элемента разметки
 
         var answer: Boolean = false
-        var tempAnswer:Boolean = true
-        var exitQuestion:Boolean = true
-        val tempMap = inputData(R.raw.base)
+        var tempAnswer: Boolean = true
+        var exitQuestion: Boolean = true
         var counterWords: Int = 0
+
+        var score = ScoreAnswer()
+
+        val tempMap = inputData(R.raw.base)
         val englishWords = mutableListOf<String>()
+        val tempEnglishWords = mutableListOf<String>()
+
+        inAnimation = AnimationUtils.loadAnimation(this, R.anim.words_in)
+        inAnimationSlowly = AnimationUtils.loadAnimation(this, R.anim.words_in_slowly)
+        outAnimation = AnimationUtils.loadAnimation(this, R.anim.words_out)
+
+
         val answerLauout1 =
             AnswerLauout(binding.llAnswer1, binding.tvVariantNumber1, binding.tvVariantValue1)
         val answerLauout2 =
@@ -42,20 +58,22 @@ class MainActivity : AppCompatActivity() {
             listOf(answerLauout1, answerLauout2, answerLauout3, answerLauout4)
 
         tempMap.forEach {
-            englishWords.add(it.key)
+            tempEnglishWords.add(it.key)
+        }
+        tempEnglishWords.shuffled().forEach{
+            englishWords.add(it)
         }
 
-        fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
+        fillingWordsOnTheScreen(tempMap, englishWords[counterWords], score)
 
         markAnswerNeutral()
 
-        binding.btnClose.setOnClickListener{
+        binding.btnClose.setOnClickListener {
             //finishAffinity()
             binding.llQuestionExitProgramm.isVisible = true
             tempAnswer = answer
             answer = true
             exitQuestion = false
-
         }
         binding.llAnswer1.setOnClickListener {
             if (!answer) {
@@ -65,12 +83,19 @@ class MainActivity : AppCompatActivity() {
                         englishWords[counterWords]
                     )
                 ) {
-                    markAnswerCorrect(layoutAll, 0)
+                    score.correctAnswerQuestions++
+                    markAnswerCorrect(layoutAll, 0, score)
                 } else {
-                    markAnswerWrong(layoutAll, 0)
+                    score.wrongAnswerQuestions++
+                    markAnswerWrong(layoutAll, 0, score)
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
+                if(score.getScore() >= englishWords.size) {
+                    answer = false
+                    exitQuestion = false
+                }
+
             }
         }
         binding.llAnswer2.setOnClickListener {
@@ -81,12 +106,18 @@ class MainActivity : AppCompatActivity() {
                         englishWords[counterWords]
                     )
                 ) {
-                    markAnswerCorrect(layoutAll, 1)
+                    score.correctAnswerQuestions++
+                    markAnswerCorrect(layoutAll, 1, score)
                 } else {
-                    markAnswerWrong(layoutAll, 1)
+                    score.wrongAnswerQuestions++
+                    markAnswerWrong(layoutAll, 1, score)
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
+                if(score.getScore() >= englishWords.size) {
+                    answer = false
+                    exitQuestion = false
+                }
             }
         }
         binding.llAnswer3.setOnClickListener {
@@ -97,12 +128,18 @@ class MainActivity : AppCompatActivity() {
                         englishWords[counterWords]
                     )
                 ) {
-                    markAnswerCorrect(layoutAll, 2)
+                    score.correctAnswerQuestions++
+                    markAnswerCorrect(layoutAll, 2, score)
                 } else {
-                    markAnswerWrong(layoutAll, 2)
+                    score.wrongAnswerQuestions++
+                    markAnswerWrong(layoutAll, 2, score)
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
+                if(score.getScore() >= englishWords.size) {
+                    answer = false
+                    exitQuestion = false
+                }
             }
         }
         binding.llAnswer4.setOnClickListener {
@@ -113,36 +150,62 @@ class MainActivity : AppCompatActivity() {
                         englishWords[counterWords]
                     )
                 ) {
-                    markAnswerCorrect(layoutAll, 3)
+                    score.correctAnswerQuestions++
+                    markAnswerCorrect(layoutAll, 3, score)
                 } else {
-                    markAnswerWrong(layoutAll, 3)
+                    score.wrongAnswerQuestions++
+                    markAnswerWrong(layoutAll, 3, score)
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
+                if(score.getScore() >= englishWords.size) {
+                    answer = false
+                    exitQuestion = false
+                }
             }
         }
         binding.btnContinue.setOnClickListener {
-            if(exitQuestion){
-                markAnswerNeutral()
+            if(score.getScore() >= englishWords.size) {
+                jumpToResults(score)
+            }
+            else{
+                if (exitQuestion) {
+                    markAnswerNeutral()
 
-                if (counterWords < englishWords.size) {
-                    counterWords++
-                    fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
-                    answer = false
+                    if (counterWords < englishWords.size) {
+                        counterWords++
+                        informationAttenuation()
+                        fillingWordsOnTheScreen(tempMap, englishWords[counterWords], score)
+                        answer = false
+                    }
                 }
             }
+
         }
         binding.btnSkip.setOnClickListener {
-            if(exitQuestion){
-                markAnswerNeutral()
-                if (counterWords < englishWords.size) {
-                    counterWords++
-                    fillingWordsOnTheScreen(tempMap, englishWords[counterWords])
-                    answer = false
+            if(score.getScore() >= englishWords.size - 1) {
+                jumpToResults(score)
+            }
+            else {
+                if (exitQuestion) {
+                    markAnswerNeutral()
+                    if (counterWords < englishWords.size) {
+                        counterWords++
+                        score.skipAnswerQuestions++
+                        informationAttenuation()
+                        fillingWordsOnTheScreen(tempMap, englishWords[counterWords], score)
+                        answer = false
+                        if(score.getScore() >= englishWords.size - 1) {
+                            answer = false
+                            exitQuestion = false
+                            jumpToResults(score)
+                        }
+                    }
                 }
             }
+
         }
-        binding.btnCloseQuestion.setOnClickListener{
+        binding.btnCloseQuestion.setOnClickListener {
             binding.llQuestionExitProgramm.isVisible = false
             answer = tempAnswer
             exitQuestion = true
@@ -156,8 +219,33 @@ class MainActivity : AppCompatActivity() {
             finishAffinity()
         }
 
+
     }
 
+    private fun jumpToResults(score: ScoreAnswer){
+        var intent = Intent(this, ResultsActivity::class.java)
+        intent.putExtra("CorrectAnswer", score.correctAnswerQuestions.toString())
+        intent.putExtra("wrongAnswer", score.wrongAnswerQuestions.toString())
+        intent.putExtra("missedAnswer", score.skipAnswerQuestions.toString())
+        startActivity(intent)
+    }
+    private fun informationAttenuation(){
+        binding.apply {
+            tvQuestionWord.startAnimation(outAnimation)
+            llBlockWords.startAnimation(outAnimation)
+            clCorrectContinue.startAnimation(outAnimation)
+            btnSkip.startAnimation(outAnimation)
+            //clScoresBar.startAnimation(outAnimation)
+        }
+    }
+    private fun informationEmergence(){
+        binding.apply {
+            tvQuestionWord.startAnimation(inAnimation)
+            llBlockWords.startAnimation(inAnimation)
+            btnSkip.startAnimation(inAnimation)
+            //clScoresBar.startAnimation(inAnimation)
+        }
+    }
     private fun highlightTheCorrectAnswer(
         linerLayoutAll: List<AnswerLauout>,
         map: MutableMap<String, String>,
@@ -200,7 +288,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fillingWordsOnTheScreen(
         tempMap: MutableMap<String, String>,
-        key: String
+        key: String, score: ScoreAnswer
     ) {
         val tempPrintSet = mutableSetOf<String>()
         val list = mutableListOf<String>()
@@ -218,6 +306,11 @@ class MainActivity : AppCompatActivity() {
         binding.tvVariantValue2.text = list[1]
         binding.tvVariantValue3.text = list[2]
         binding.tvVariantValue4.text = list[3]
+
+        binding.tvCorrectAnswerCount.text = score.correctAnswerQuestions.toString()
+        binding.tvWrongAnswerCount.text = score.wrongAnswerQuestions.toString()
+        binding.tvSkipAnswerCount.text = score.skipAnswerQuestions.toString()
+        informationEmergence()
     }
 
     private fun <T, U> Map<T, U>.random(): Map.Entry<T, U> = entries.elementAt(random.nextInt(size))
@@ -289,7 +382,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun markAnswerCorrect(linerLayoutAll: List<AnswerLauout>, index: Int) {
+    private fun markAnswerCorrect(linerLayoutAll: List<AnswerLauout>, index: Int, score: ScoreAnswer) {
         linerLayoutAll[index].llAnswers.background = ContextCompat.getDrawable(
             this@MainActivity,
             R.drawable.shape_rounded_containers_correct
@@ -337,9 +430,13 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
+        binding.tvCorrectAnswerCount.text = score.correctAnswerQuestions.toString()
+        binding.tvWrongAnswerCount.text = score.wrongAnswerQuestions.toString()
+        binding.tvSkipAnswerCount.text = score.skipAnswerQuestions.toString()
+
     }
 
-    private fun markAnswerWrong(linerLayoutAll: List<AnswerLauout>, index: Int) {
+    private fun markAnswerWrong(linerLayoutAll: List<AnswerLauout>, index: Int, score: ScoreAnswer) {
         linerLayoutAll[index].llAnswers.background = ContextCompat.getDrawable(
             this,
             R.drawable.shape_rounded_containers_wrong
@@ -386,6 +483,9 @@ class MainActivity : AppCompatActivity() {
                 R.color.wrongVariantValue
             )
         )
+        binding.tvCorrectAnswerCount.text = score.correctAnswerQuestions.toString()
+        binding.tvWrongAnswerCount.text = score.wrongAnswerQuestions.toString()
+        binding.tvSkipAnswerCount.text = score.skipAnswerQuestions.toString()
 
     }
 }

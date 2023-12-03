@@ -4,5 +4,11 @@
     <string name="title_correct">Правильно!</string>
     <string name="title_wrong">Не правильно!</string>
     <string name="button_continue">Продолжить</string>
-    <string name="question_exit">Вы хотите выйти?</string>
+    <string name="title_question">Вы хотите выйти?</string>
+    <string name="button_restart">Перезапустить</string>
+    <string name="button_yes">Да</string>
+    <string name="button_no">Нет</string>
+    <string name="correct_answers">Правильных ответов:</string>
+    <string name="wrong_answers">Неправильных ответов:</string>
+    <string name="Missed_answers">Пропущенных ответов:</string>
 </resources>

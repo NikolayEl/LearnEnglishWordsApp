@@ -1,8 +1,14 @@
 <resources>
-    <string name="app_name" translatable="false">LearnEnglishWordsApp</string>
+    <string name="app_name">LearnEnglishWordsApp</string>
     <string name="button_skip">Skip</string>
     <string name="title_correct">Correct!</string>
     <string name="title_wrong">Wrong!</string>
     <string name="button_continue">Continue</string>
-    <string name="question_exit">Do you want to exit?</string>
+    <string name="title_question">Do you want to exit?</string>
+    <string name="button_restart">Restart</string>
+    <string name="button_no">No</string>
+    <string name="button_yes">Yes</string>
+    <string name="correct_answers">Correct answers:</string>
+    <string name="wrong_answers">Wrong answers:</string>
+    <string name="Missed_answers">Missed answers:</string>
 </resources>
