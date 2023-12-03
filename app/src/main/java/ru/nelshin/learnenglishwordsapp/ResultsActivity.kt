@@ -26,9 +26,11 @@ class ResultsActivity : AppCompatActivity() {
         val btnCloseResult: ImageButton = findViewById(R.id.btnCloseResult)
         val clBlockResult: androidx.constraintlayout.widget.ConstraintLayout = findViewById(R.id.clBlockResult)
 
+
         var tvCorrectAnswerResult: TextView = findViewById(R.id.tvCorrectAnswerResult)
         var tvWrongAnswerResult: TextView = findViewById(R.id.tvWrongAnswerResult)
         var tvSkipAnswerResult: TextView = findViewById(R.id.tvMisseAnswerResult)
+        var tvChoiceResult: TextView = findViewById(R.id.tvChoiceResult)
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.words_in_slowly)
 
@@ -42,12 +44,13 @@ class ResultsActivity : AppCompatActivity() {
         btnCloseResult.startAnimation((inAnimation))
         clBlockResult.startAnimation(inAnimation)
 
+        tvChoiceResult.text = intent.getStringExtra(("choice"))
         tvCorrectAnswerResult.text = intent.getStringExtra("CorrectAnswer")
         tvWrongAnswerResult.text = intent.getStringExtra("wrongAnswer")
         tvSkipAnswerResult.text = intent.getStringExtra("missedAnswer")
 
         btnReload.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, StartLearn::class.java)
             startActivity(intent)
         }
 

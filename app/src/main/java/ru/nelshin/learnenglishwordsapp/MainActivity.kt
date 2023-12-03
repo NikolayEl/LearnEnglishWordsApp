@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import ru.nelshin.learnenglishwordsapp.databinding.ActivityMainBinding
@@ -34,16 +32,26 @@ class MainActivity : AppCompatActivity() {
         var tempAnswer: Boolean = true
         var exitQuestion: Boolean = true
         var counterWords: Int = 0
+        val choice: String = intent.getStringExtra("base").toString()
+        val tempMap: MutableMap<String, String>
 
         var score = ScoreAnswer()
+        if(choice == getString(R.string.result_school))
+            tempMap = inputData(R.raw.base_school)
+        else if(choice == getString(R.string.result_travel))
+            tempMap = inputData(R.raw.base_traveling)
+        else if(choice == getString(R.string.result_sport))
+            tempMap = inputData(R.raw.base_sporting)
+        else
+            tempMap = inputData(R.raw.base_programming)
 
-        val tempMap = inputData(R.raw.base)
         val englishWords = mutableListOf<String>()
         val tempEnglishWords = mutableListOf<String>()
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.words_in)
         inAnimationSlowly = AnimationUtils.loadAnimation(this, R.anim.words_in_slowly)
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.words_out)
+        binding.tvCategoryLearn.text = choice
 
 
         val answerLauout1 =
@@ -166,7 +174,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnContinue.setOnClickListener {
             if(score.getScore() >= englishWords.size) {
-                jumpToResults(score)
+                jumpToResults(score, choice)
             }
             else{
                 if (exitQuestion) {
@@ -184,7 +192,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnSkip.setOnClickListener {
             if(score.getScore() >= englishWords.size - 1) {
-                jumpToResults(score)
+                jumpToResults(score, choice)
             }
             else {
                 if (exitQuestion) {
@@ -198,7 +206,7 @@ class MainActivity : AppCompatActivity() {
                         if(score.getScore() >= englishWords.size - 1) {
                             answer = false
                             exitQuestion = false
-                            jumpToResults(score)
+                            jumpToResults(score, choice)
                         }
                     }
                 }
@@ -222,18 +230,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun jumpToResults(score: ScoreAnswer){
+    private fun jumpToResults(score: ScoreAnswer, choice: String?){
         var intent = Intent(this, ResultsActivity::class.java)
         intent.putExtra("CorrectAnswer", score.correctAnswerQuestions.toString())
         intent.putExtra("wrongAnswer", score.wrongAnswerQuestions.toString())
         intent.putExtra("missedAnswer", score.skipAnswerQuestions.toString())
+        intent.putExtra("choice", choice)
         startActivity(intent)
     }
     private fun informationAttenuation(){
         binding.apply {
             tvQuestionWord.startAnimation(outAnimation)
             llBlockWords.startAnimation(outAnimation)
-            clCorrectContinue.startAnimation(outAnimation)
+            //clCorrectContinue.startAnimation(outAnimation)
             btnSkip.startAnimation(outAnimation)
             //clScoresBar.startAnimation(outAnimation)
         }
@@ -320,7 +329,7 @@ class MainActivity : AppCompatActivity() {
         val inputStream: InputStream = resources.openRawResource(idFile)
         inputStream.bufferedReader().forEachLine {
             val (englishVershion, russianVersion) = it.split(';', ignoreCase = false, limit = 2)
-            map.put(englishVershion, russianVersion)
+            map.put(englishVershion.trim(), russianVersion.trim())
         }
         return map
     }

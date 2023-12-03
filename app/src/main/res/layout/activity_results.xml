@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ResultsActivity">
 
+    <TextView
+        android:id="@+id/tvChoiceResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:text="@string/result_programming"
+        android:textSize="40sp"
+        android:fontFamily="@font/nunito_bold"
+        android:textColor="#DC1CD2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clBlockResult"
         android:layout_width="300dp"
@@ -81,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/rubik_regular"
-            android:text="@string/Missed_answers"
+            android:text="@string/missed_answers"
             android:textColor="@color/buttonBlueColor"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -10,5 +10,12 @@
     <string name="button_yes">Yes</string>
     <string name="correct_answers">Correct answers:</string>
     <string name="wrong_answers">Wrong answers:</string>
-    <string name="Missed_answers">Missed answers:</string>
+    <string name="missed_answers">Missed answers:</string>
+    <string name="start_programming">Programming</string>
+    <string name="start_trips">Trevel</string>
+    <string name="start_title">Learn English words</string>
+    <string name="result_sport">Sport</string>
+    <string name="result_programming">Programming</string>
+    <string name="result_school">School</string>
+    <string name="result_travel">Travel</string>
 </resources>

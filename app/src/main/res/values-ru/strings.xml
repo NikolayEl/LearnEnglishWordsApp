@@ -10,5 +10,12 @@
     <string name="button_no">Нет</string>
     <string name="correct_answers">Правильных ответов:</string>
     <string name="wrong_answers">Неправильных ответов:</string>
-    <string name="Missed_answers">Пропущенных ответов:</string>
+    <string name="missed_answers">Пропущенных ответов:</string>
+    <string name="start_programming">Программирование</string>
+    <string name="start_trips">Путишествия</string>
+    <string name="start_title">Учим английские слова</string>
+    <string name="result_sport">Спорт</string>
+    <string name="result_programming">Программирование</string>
+    <string name="result_school">Школа</string>
+    <string name="result_travel">Путешествие</string>
 </resources>
