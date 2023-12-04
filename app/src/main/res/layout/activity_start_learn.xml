@@ -48,16 +48,17 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="555dp"
-        android:layout_marginVertical="55dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="215dp"
+        android:layout_marginBottom="40dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        tools:layout_editor_absoluteX="10dp">
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="27dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/imageView5">
@@ -66,7 +67,7 @@
                 android:id="@+id/ivProgrammingLearn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_button_future"
                 android:clipToOutline="true"
@@ -79,7 +80,7 @@
                 android:id="@+id/ivTravelLearn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_button_future"
                 android:clipToOutline="true"
@@ -93,7 +94,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/imageView5">
@@ -102,7 +103,7 @@
                 android:id="@+id/ivSpotrLearn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_button_future"
                 android:clipToOutline="true"
@@ -115,7 +116,7 @@
                 android:id="@+id/ivShoolLearn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_button_future"
                 android:clipToOutline="true"
@@ -135,7 +136,7 @@
         android:fontFamily="@font/nunito_bold"
         android:text="@string/result_programming"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/linearLayout">
@@ -150,7 +151,7 @@
         android:gravity="center"
         android:text="@string/result_sport"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/imageView4">
 
@@ -164,7 +165,7 @@
         android:gravity="center"
         android:text="@string/result_travel"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout">
 
@@ -178,7 +179,7 @@
         android:gravity="center"
         android:text="@string/result_school"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent">
 
