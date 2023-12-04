@@ -8,15 +8,15 @@
 
     <TextView
         android:id="@+id/tvChoiceResult"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:gravity="center"
         android:textAllCaps="true"
         android:text="@string/result_programming"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:fontFamily="@font/nunito_bold"
-        android:textColor="#DC1CD2"
+        android:textColor="#FF5722"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

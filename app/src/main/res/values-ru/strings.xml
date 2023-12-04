@@ -18,4 +18,9 @@
     <string name="result_programming">Программирование</string>
     <string name="result_school">Школа</string>
     <string name="result_travel">Путешествия</string>
+    <string name="button_back">Кнопка назад</string>
+    <string name="image_category">Картинка выбранной категории</string>
+    <string name="null_score">0</string>
+    <string name="button_close">Картинка кнопки выход</string>
+    <string name="variant_text">вариант текста</string>
 </resources>

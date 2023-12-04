@@ -53,7 +53,7 @@ horse riding;конный спорт
 hunting;охота
 ice hockey;хоккей на льду
 ice skating;фигурное катание
-inline skating или rollerblading;катание на роликовых коньках
+inline skating or rollerblading;катание на роликовых коньках
 jogging;бег трусцой
 judo;дзюдо
 karate;каратэ
@@ -107,8 +107,8 @@ skis;лыжи
 squash racquet;ракетка для игры в сквош
 tennis racquet;теннисная ракетка
 booking;нарушение правил, за которое игрок получает жёлтую карточку
-corner kick или corner;угловой удар
-crossbar или bar;перекладина
+corner kick or corner;угловой удар
+crossbar or bar;перекладина
 fan;фанат
 foul;нарушение
 football club;футбольный клуб
@@ -116,7 +116,7 @@ free kick;штрафной удар
 goal;гол
 goal kick;удар от ворот
 goalkeeper;вратарь
-goalpost или post;ворота
+goalpost or post;ворота
 half-way line;средняя линия
 half-time;тайм
 header;игра головой

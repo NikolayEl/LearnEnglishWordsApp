@@ -18,4 +18,9 @@
     <string name="result_programming">Programming</string>
     <string name="result_school">School</string>
     <string name="result_travel">Travel</string>
+    <string name="button_back">back image</string>
+    <string name="image_category">category image</string>
+    <string name="null_score">0</string>
+    <string name="button_close">image exit</string>
+    <string name="variant_text" translatable="false">вариант текста</string>
 </resources>

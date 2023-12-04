@@ -8,29 +8,29 @@
 
     <ImageButton
         android:id="@+id/btnClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Close image button"
+        android:contentDescription="Close image"
         android:src="@drawable/ic_close"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText">
 
     </ImageButton>
 
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/back24"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
         android:background="@android:color/transparent"
-        android:contentDescription="back image button">
+        android:contentDescription="@string/button_back"
+        android:src="@drawable/back24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText">
 
     </ImageButton>
 
@@ -41,15 +41,16 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
         android:src="@drawable/developer48"
+        android:contentDescription="@string/image_category"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clScoresBar">
+        app:layout_constraintTop_toBottomOf="@+id/clScoreBar">
 
     </ImageView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clScoresBar"
+        android:id="@+id/clScoreBar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_correct"
+            android:contentDescription="@string/correct_answers"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -73,7 +75,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
             android:fontFamily="@font/rubik_regular"
-            android:text="0"
+            android:text="@string/null_score"
             android:textColor="@color/correctVariantValue"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -87,11 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/rubik_regular"
-            android:text="0"
+            android:text="@string/null_score"
             android:textColor="@color/buttonBlueColor"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -104,7 +105,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="50dp"
             android:fontFamily="@font/rubik_regular"
-            android:text="0"
+            android:text="@string/null_score"
             android:textColor="@color/wrongVariantValue"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent">
@@ -117,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_wrong"
+            android:contentDescription="@string/wrong_answers"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -154,7 +156,8 @@
                 android:gravity="center"
                 android:text="1"
                 android:textColor="#888992"
-                android:textSize="16sp">
+                android:textSize="16sp"
+                tools:ignore="HardcodedText">
 
             </TextView>
 
@@ -166,7 +169,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
-                android:text="Сломать"
+                android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
             </TextView>
@@ -191,7 +194,8 @@
                 android:gravity="center"
                 android:text="2"
                 android:textColor="#888992"
-                android:textSize="16sp">
+                android:textSize="16sp"
+                tools:ignore="HardcodedText">
 
             </TextView>
 
@@ -203,7 +207,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
-                android:text="Сон"
+                android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
             </TextView>
@@ -228,7 +232,8 @@
                 android:gravity="center"
                 android:text="3"
                 android:textColor="#888992"
-                android:textSize="16sp">
+                android:textSize="16sp"
+                tools:ignore="HardcodedText">
 
             </TextView>
 
@@ -240,7 +245,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
-                android:text="Галактика"
+                android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
             </TextView>
@@ -265,7 +270,8 @@
                 android:gravity="center"
                 android:text="4"
                 android:textColor="#888992"
-                android:textSize="16sp">
+                android:textSize="16sp"
+                tools:ignore="HardcodedText">
 
             </TextView>
 
@@ -277,7 +283,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
-                android:text="Утюг"
+                android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
             </TextView>
@@ -306,7 +312,7 @@
     </TextView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/llQuestionExitProgramm"
+        android:id="@+id/llQuestionExitProgram"
         android:layout_width="300dp"
         android:layout_height="170dp"
         android:background="@drawable/shape_rounded_containers_blue_questions"
@@ -324,7 +330,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:contentDescription="Close image button question exit"
+            android:contentDescription="@string/button_close"
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -414,7 +420,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="18dp"
-            android:contentDescription="Correct answer icon"
+            android:contentDescription="@string/correct_answers"
             android:src="@drawable/ic_correct"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"

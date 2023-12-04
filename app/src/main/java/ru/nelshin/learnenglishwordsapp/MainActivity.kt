@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnClose.setOnClickListener {
             //finishAffinity()
-            binding.llQuestionExitProgramm.isVisible = true
+            binding.llQuestionExitProgram.isVisible = true
             tempAnswer = answer
             answer = true
             exitQuestion = false
@@ -221,12 +221,12 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.btnCloseQuestion.setOnClickListener {
-            binding.llQuestionExitProgramm.isVisible = false
+            binding.llQuestionExitProgram.isVisible = false
             answer = tempAnswer
             exitQuestion = true
         }
         binding.btnAnswerNoExit.setOnClickListener {
-            binding.llQuestionExitProgramm.isVisible = false
+            binding.llQuestionExitProgram.isVisible = false
             answer = tempAnswer
             exitQuestion = true
         }

@@ -21,9 +21,8 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/learn_english"
+        android:layout_height="175dp"
+        android:src="@drawable/learn_english2"
         android:scaleType="centerCrop"
         android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,33 +31,47 @@
 
     </ImageView>
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="@string/result_programming"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+    </TextView>
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="555dp"
+        android:layout_marginVertical="55dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        tools:layout_editor_absoluteX="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="27dp"
             android:layout_weight="1"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
             <ImageView
                 android:id="@+id/ivProgrammingLearn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/fon_programming"
-                android:scaleType="centerCrop"
+                android:layout_weight="1"
                 android:background="@drawable/shape_button_future"
-                android:clipToOutline="true">
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/fon_programming">
 
             </ImageView>
 
@@ -68,10 +81,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/fon_travels"
-                android:scaleType="centerCrop"
                 android:background="@drawable/shape_button_future"
-                android:clipToOutline="true">
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/fon_travels">
 
             </ImageView>
 
@@ -80,21 +93,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="27dp"
             android:layout_weight="1"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
             <ImageView
                 android:id="@+id/ivSpotrLearn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/fon_sport"
-                android:scaleType="centerCrop"
+                android:layout_weight="1"
                 android:background="@drawable/shape_button_future"
-                android:clipToOutline="true">
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/fon_sport">
 
             </ImageView>
 
@@ -104,15 +117,71 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/fon_school2"
-                android:scaleType="centerCrop"
                 android:background="@drawable/shape_button_future"
-                android:clipToOutline="true">
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/fon_school2">
 
             </ImageView>
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_bold"
+        android:text="@string/result_programming"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_bold"
+        android:gravity="center"
+        android:text="@string/result_sport"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/imageView4">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_bold"
+        android:gravity="center"
+        android:text="@string/result_travel"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_bold"
+        android:gravity="center"
+        android:text="@string/result_school"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
