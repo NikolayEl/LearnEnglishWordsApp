@@ -3,13 +3,6 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="C:\Users\Elshin\Pictures\AndroidStudio\EnglishLearn\base.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value=";" />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="C:\Users\Elshin\Pictures\AndroidStudio\EnglishLearn\base_travel.csv">
           <value>
             <Attribute>
@@ -25,20 +18,6 @@
           </value>
         </entry>
         <entry key="\app\src\main\res\raw\base_school.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value=";" />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app\src\main\res\raw\base_sport.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value=";" />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\app\src\main\res\raw\base_travel.csv">
           <value>
             <Attribute>
               <option name="separator" value=";" />

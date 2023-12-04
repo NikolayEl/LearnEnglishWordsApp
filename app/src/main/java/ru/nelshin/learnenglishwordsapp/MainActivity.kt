@@ -36,22 +36,29 @@ class MainActivity : AppCompatActivity() {
         val tempMap: MutableMap<String, String>
 
         var score = ScoreAnswer()
-        if(choice == getString(R.string.result_school))
+        if(choice == getString(R.string.result_school)) {
             tempMap = inputData(R.raw.base_school)
-        else if(choice == getString(R.string.result_travel))
+            binding.ivChoiceCategory.setImageResource(R.drawable.school48)
+        }
+        else if(choice == getString(R.string.result_travel)) {
             tempMap = inputData(R.raw.base_traveling)
-        else if(choice == getString(R.string.result_sport))
+            binding.ivChoiceCategory.setImageResource(R.drawable.aerplane)
+        }
+        else if(choice == getString(R.string.result_sport)) {
             tempMap = inputData(R.raw.base_sporting)
-        else
+            binding.ivChoiceCategory.setImageResource(R.drawable.sport48)
+        }
+        else {
             tempMap = inputData(R.raw.base_programming)
-
+            binding.ivChoiceCategory.setImageResource(R.drawable.developer48)
+        }
         val englishWords = mutableListOf<String>()
         val tempEnglishWords = mutableListOf<String>()
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.words_in)
         inAnimationSlowly = AnimationUtils.loadAnimation(this, R.anim.words_in_slowly)
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.words_out)
-        binding.tvCategoryLearn.text = choice
+
 
 
         val answerLauout1 =
@@ -225,6 +232,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnAnswerYesExit.setOnClickListener {
             finishAffinity()
+        }
+        binding.btnBack.setOnClickListener{
+            finish()
         }
 
 

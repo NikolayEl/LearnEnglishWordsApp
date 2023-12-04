@@ -20,6 +20,32 @@
 
     </ImageButton>
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/back24"
+        android:background="@android:color/transparent"
+        android:contentDescription="back image button">
+
+    </ImageButton>
+
+    <ImageView
+        android:id="@+id/ivChoiceCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:src="@drawable/developer48"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clScoresBar">
+
+    </ImageView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clScoresBar"
         android:layout_width="match_parent"
@@ -260,22 +286,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvCategoryLearn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_bold"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/result_programming"
-        android:textAllCaps="true"
-        android:textColor="@color/buttonBlueColor"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clScoresBar">
-
-    </TextView>
-    <TextView
         android:id="@+id/tvQuestionWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -286,6 +296,7 @@
         android:text="Galaxy"
         android:textColor="#202027"
         android:textSize="50sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnClose"
@@ -298,7 +309,7 @@
         android:id="@+id/llQuestionExitProgramm"
         android:layout_width="300dp"
         android:layout_height="170dp"
-        android:background="@drawable/shape_rounded_variants_correct"
+        android:background="@drawable/shape_rounded_containers_blue_questions"
         android:visibility="gone"
         android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -339,8 +350,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_button_future"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/shape_button_future_stroke"
             android:fontFamily="@font/nunito_bold"
             android:text="@string/button_no"
             android:textAllCaps="true"
@@ -354,8 +364,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/shape_button_future"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/shape_button_future_stroke"
             android:fontFamily="@font/nunito_bold"
             android:text="@string/button_yes"
             android:textAllCaps="true"
