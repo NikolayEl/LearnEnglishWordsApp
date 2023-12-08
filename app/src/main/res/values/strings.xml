@@ -23,4 +23,6 @@
     <string name="null_score">0</string>
     <string name="button_close">image exit</string>
     <string name="variant_text" translatable="false">вариант текста</string>
+    <string name="title_result">Your result:</string>
+    <string name="work_timer">Timer:</string>
 </resources>

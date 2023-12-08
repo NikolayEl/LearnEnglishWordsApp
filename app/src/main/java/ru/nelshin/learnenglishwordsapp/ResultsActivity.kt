@@ -30,7 +30,7 @@ class ResultsActivity : AppCompatActivity() {
         var tvCorrectAnswerResult: TextView = findViewById(R.id.tvCorrectAnswerResult)
         var tvWrongAnswerResult: TextView = findViewById(R.id.tvWrongAnswerResult)
         var tvSkipAnswerResult: TextView = findViewById(R.id.tvMisseAnswerResult)
-        var tvChoiceResult: TextView = findViewById(R.id.tvChoiceResult)
+        //var tvChoiceResult: TextView = findViewById(R.id.tvChoiceResult)
 
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.words_in_slowly)
 
@@ -44,7 +44,7 @@ class ResultsActivity : AppCompatActivity() {
         btnCloseResult.startAnimation((inAnimation))
         clBlockResult.startAnimation(inAnimation)
 
-        tvChoiceResult.text = intent.getStringExtra(("choice"))
+        //tvChoiceResult.text = intent.getStringExtra(("choice"))
         tvCorrectAnswerResult.text = intent.getStringExtra("CorrectAnswer")
         tvWrongAnswerResult.text = intent.getStringExtra("wrongAnswer")
         tvSkipAnswerResult.text = intent.getStringExtra("missedAnswer")

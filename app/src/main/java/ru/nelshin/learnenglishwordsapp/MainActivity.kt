@@ -10,6 +10,11 @@ import ru.nelshin.learnenglishwordsapp.databinding.ActivityMainBinding
 import kotlin.random.Random
 import java.io.InputStream
 import android.content.Intent
+import android.os.SystemClock
+import android.widget.TextView
+import kotlinx.coroutines.*
+import ru.nelshin.learnenglishwordsapp.databinding.ActivityStartLearnBinding
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,29 +33,34 @@ class MainActivity : AppCompatActivity() {
             ActivityMainBinding.inflate(layoutInflater) //связывает класс байндинг с мэйнактивити, мы раздели разметку - из разметки xml сделали view
         setContentView(binding.root) //Меняем на получение корневого элемента разметки
 
-        var answer: Boolean = false
-        var tempAnswer: Boolean = true
-        var exitQuestion: Boolean = true
-        var counterWords: Int = 0
+        var answer = false
+        var tempAnswer = true
+        var exitQuestion = true
+        var counterWords = 0
         val choice: String = intent.getStringExtra("base").toString()
         val tempMap: MutableMap<String, String>
 
-        var score = ScoreAnswer()
-        if(choice == getString(R.string.result_school)) {
-            tempMap = inputData(R.raw.base_school)
-            binding.ivChoiceCategory.setImageResource(R.drawable.school48)
-        }
-        else if(choice == getString(R.string.result_travel)) {
-            tempMap = inputData(R.raw.base_traveling)
-            binding.ivChoiceCategory.setImageResource(R.drawable.aerplane)
-        }
-        else if(choice == getString(R.string.result_sport)) {
-            tempMap = inputData(R.raw.base_sporting)
-            binding.ivChoiceCategory.setImageResource(R.drawable.sport48)
-        }
-        else {
-            tempMap = inputData(R.raw.base_programming)
-            binding.ivChoiceCategory.setImageResource(R.drawable.developer48)
+        val score = ScoreAnswer()
+        when (choice) {
+            getString(R.string.result_school) -> {
+                tempMap = inputData(R.raw.base_school)
+                binding.ivChoiceCategory.setImageResource(R.drawable.school48)
+            }
+
+            getString(R.string.result_travel) -> {
+                tempMap = inputData(R.raw.base_traveling)
+                binding.ivChoiceCategory.setImageResource(R.drawable.aerplane)
+            }
+
+            getString(R.string.result_sport) -> {
+                tempMap = inputData(R.raw.base_sporting)
+                binding.ivChoiceCategory.setImageResource(R.drawable.sport48)
+            }
+
+            else -> {
+                tempMap = inputData(R.raw.base_programming)
+                binding.ivChoiceCategory.setImageResource(R.drawable.developer48)
+            }
         }
         val englishWords = mutableListOf<String>()
         val tempEnglishWords = mutableListOf<String>()
@@ -58,7 +68,6 @@ class MainActivity : AppCompatActivity() {
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.words_in)
         inAnimationSlowly = AnimationUtils.loadAnimation(this, R.anim.words_in_slowly)
         outAnimation = AnimationUtils.loadAnimation(this, R.anim.words_out)
-
 
 
         val answerLauout1 =
@@ -75,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         tempMap.forEach {
             tempEnglishWords.add(it.key)
         }
-        tempEnglishWords.shuffled().forEach{
+        tempEnglishWords.shuffled().forEach {
             englishWords.add(it)
         }
 
@@ -106,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
-                if(score.getScore() >= englishWords.size) {
+                if (score.getScore() >= englishWords.size) {
                     answer = false
                     exitQuestion = false
                 }
@@ -114,6 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.llAnswer2.setOnClickListener {
+            //threadTimer.interrupt()
             if (!answer) {
                 if (wordChek(
                         binding.tvVariantValue2.text.toString(),
@@ -129,13 +139,14 @@ class MainActivity : AppCompatActivity() {
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
-                if(score.getScore() >= englishWords.size) {
+                if (score.getScore() >= englishWords.size) {
                     answer = false
                     exitQuestion = false
                 }
             }
         }
         binding.llAnswer3.setOnClickListener {
+            //threadTimer.interrupt()
             if (!answer) {
                 if (wordChek(
                         binding.tvVariantValue3.text.toString(),
@@ -151,13 +162,14 @@ class MainActivity : AppCompatActivity() {
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
-                if(score.getScore() >= englishWords.size) {
+                if (score.getScore() >= englishWords.size) {
                     answer = false
                     exitQuestion = false
                 }
             }
         }
         binding.llAnswer4.setOnClickListener {
+            //threadTimer.interrupt()
             if (!answer) {
                 if (wordChek(
                         binding.tvVariantValue4.text.toString(),
@@ -173,23 +185,23 @@ class MainActivity : AppCompatActivity() {
                     highlightTheCorrectAnswer(layoutAll, tempMap, englishWords[counterWords])
                 }
                 answer = true
-                if(score.getScore() >= englishWords.size) {
+                if (score.getScore() >= englishWords.size) {
                     answer = false
                     exitQuestion = false
                 }
             }
         }
         binding.btnContinue.setOnClickListener {
-            if(score.getScore() >= englishWords.size) {
+            if (score.getScore() >= englishWords.size) {
                 jumpToResults(score, choice)
-            }
-            else{
+            } else {
                 if (exitQuestion) {
                     markAnswerNeutral()
 
                     if (counterWords < englishWords.size) {
                         counterWords++
                         informationAttenuation()
+                        //if(threadTimer.isInterrupted) threadTimer.join()
                         fillingWordsOnTheScreen(tempMap, englishWords[counterWords], score)
                         answer = false
                     }
@@ -198,19 +210,19 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.btnSkip.setOnClickListener {
-            if(score.getScore() >= englishWords.size - 1) {
+            if (score.getScore() >= englishWords.size - 1) {
                 jumpToResults(score, choice)
-            }
-            else {
+            } else {
                 if (exitQuestion) {
                     markAnswerNeutral()
                     if (counterWords < englishWords.size) {
                         counterWords++
                         score.skipAnswerQuestions++
                         informationAttenuation()
+                        //if(threadTimer.isInterrupted) threadTimer.join()
                         fillingWordsOnTheScreen(tempMap, englishWords[counterWords], score)
                         answer = false
-                        if(score.getScore() >= englishWords.size - 1) {
+                        if (score.getScore() >= englishWords.size - 1) {
                             answer = false
                             exitQuestion = false
                             jumpToResults(score, choice)
@@ -233,14 +245,59 @@ class MainActivity : AppCompatActivity() {
         binding.btnAnswerYesExit.setOnClickListener {
             finishAffinity()
         }
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             finish()
         }
 
 
     }
 
-    private fun jumpToResults(score: ScoreAnswer, choice: String?){
+
+    private fun timerStart() {
+        thread {
+            runOnUiThread{ binding.tvTimer.isVisible = true }
+            val score = binding.tvCorrectAnswerCount.text.toString()
+                .toInt() + binding.tvWrongAnswerCount.text.toString()
+                .toInt() + binding.tvSkipAnswerCount.text.toString().toInt()
+            var scoretemp: Int
+
+            var count = 10
+            while (count >= 0) {
+                scoretemp = binding.tvCorrectAnswerCount.text.toString()
+                    .toInt() + binding.tvWrongAnswerCount.text.toString()
+                    .toInt() + binding.tvSkipAnswerCount.text.toString().toInt()
+                if (score != scoretemp) {
+                    runOnUiThread{
+                        binding.tvTimer.setTextColor(getColorStateList(R.color.black))
+                        binding.tvTextTimer.setTextColor(getColorStateList(R.color.black))
+                    }
+                    break
+                }
+                if(count == 3){
+                    runOnUiThread{
+                        binding.tvTimer.setTextColor(getColorStateList(R.color.wrongVariantValue))
+                        binding.tvTextTimer.setTextColor(getColorStateList(R.color.wrongVariantValue))
+                    }
+                }
+                runOnUiThread {
+                    binding.tvTimer.text = count.toString()
+                }
+                Thread.sleep(1000)
+                count--
+            }
+            if (count < 0) {
+                runOnUiThread {
+                    binding.llAnswer1.isEnabled = false
+                    binding.llAnswer2.isEnabled = false
+                    binding.llAnswer3.isEnabled = false
+                    binding.llAnswer4.isEnabled = false
+
+                }
+            }
+        }
+    }
+
+    private fun jumpToResults(score: ScoreAnswer, choice: String?) {
         var intent = Intent(this, ResultsActivity::class.java)
         intent.putExtra("CorrectAnswer", score.correctAnswerQuestions.toString())
         intent.putExtra("wrongAnswer", score.wrongAnswerQuestions.toString())
@@ -248,7 +305,8 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("choice", choice)
         startActivity(intent)
     }
-    private fun informationAttenuation(){
+
+    private fun informationAttenuation() {
         binding.apply {
             tvQuestionWord.startAnimation(outAnimation)
             llBlockWords.startAnimation(outAnimation)
@@ -257,7 +315,8 @@ class MainActivity : AppCompatActivity() {
             //clScoresBar.startAnimation(outAnimation)
         }
     }
-    private fun informationEmergence(){
+
+    private fun informationEmergence() {
         binding.apply {
             tvQuestionWord.startAnimation(inAnimation)
             llBlockWords.startAnimation(inAnimation)
@@ -265,6 +324,7 @@ class MainActivity : AppCompatActivity() {
             //clScoresBar.startAnimation(inAnimation)
         }
     }
+
     private fun highlightTheCorrectAnswer(
         linerLayoutAll: List<AnswerLauout>,
         map: MutableMap<String, String>,
@@ -319,7 +379,10 @@ class MainActivity : AppCompatActivity() {
         tempPrintSet.shuffled().forEach {
             list.add(it)
         }
-
+        binding.llAnswer1.isEnabled = true
+        binding.llAnswer2.isEnabled = true
+        binding.llAnswer3.isEnabled = true
+        binding.llAnswer4.isEnabled = true
         binding.tvQuestionWord.text = key
         binding.tvVariantValue1.text = list[0]
         binding.tvVariantValue2.text = list[1]
@@ -330,6 +393,7 @@ class MainActivity : AppCompatActivity() {
         binding.tvWrongAnswerCount.text = score.wrongAnswerQuestions.toString()
         binding.tvSkipAnswerCount.text = score.skipAnswerQuestions.toString()
         informationEmergence()
+        timerStart()
     }
 
     private fun <T, U> Map<T, U>.random(): Map.Entry<T, U> = entries.elementAt(random.nextInt(size))
@@ -401,7 +465,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun markAnswerCorrect(linerLayoutAll: List<AnswerLauout>, index: Int, score: ScoreAnswer) {
+    private fun markAnswerCorrect(
+        linerLayoutAll: List<AnswerLauout>,
+        index: Int,
+        score: ScoreAnswer
+    ) {
         linerLayoutAll[index].llAnswers.background = ContextCompat.getDrawable(
             this@MainActivity,
             R.drawable.shape_rounded_containers_correct
@@ -455,7 +523,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun markAnswerWrong(linerLayoutAll: List<AnswerLauout>, index: Int, score: ScoreAnswer) {
+    private fun markAnswerWrong(
+        linerLayoutAll: List<AnswerLauout>,
+        index: Int,
+        score: ScoreAnswer
+    ) {
         linerLayoutAll[index].llAnswers.background = ContextCompat.getDrawable(
             this,
             R.drawable.shape_rounded_containers_wrong

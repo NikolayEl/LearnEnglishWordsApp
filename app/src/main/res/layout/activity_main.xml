@@ -47,6 +47,20 @@
 
     </ImageView>
 
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/nunito_regular"
+        android:text="@string/null_score"
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@+id/tvTextTimer"
+        app:layout_constraintTop_toBottomOf="@+id/clScoreBar">
+
+    </TextView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clScoreBar"
         android:layout_width="match_parent"
@@ -168,7 +182,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
+                android:gravity="start|center_vertical"
                 android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
@@ -206,7 +220,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
+                android:gravity="start|center_vertical"
                 android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
@@ -244,7 +258,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
+                android:gravity="start|center_vertical"
                 android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
@@ -282,7 +296,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
+                android:gravity="start|center_vertical"
                 android:text="@string/variant_text"
                 tools:ignore="HardcodedText">
 
@@ -462,4 +476,16 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvTextTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/work_timer"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/nunito_regular"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clScoreBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

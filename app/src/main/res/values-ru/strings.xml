@@ -23,4 +23,6 @@
     <string name="null_score">0</string>
     <string name="button_close">Картинка кнопки выход</string>
     <string name="variant_text">вариант текста</string>
+    <string name="title_result">Ваш результат:</string>
+    <string name="work_timer">Таймер:</string>
 </resources>
