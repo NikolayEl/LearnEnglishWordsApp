@@ -12,6 +12,7 @@ import java.io.InputStream
 import android.content.Intent
 import android.os.SystemClock
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
 import ru.nelshin.learnenglishwordsapp.databinding.ActivityStartLearnBinding
 import kotlin.concurrent.thread
@@ -253,48 +254,46 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun timerStart() {
-        thread {
-            runOnUiThread{ binding.tvTimer.isVisible = true }
-            val score = binding.tvCorrectAnswerCount.text.toString()
+    private suspend fun timerStart() {
+
+       val score = binding.tvCorrectAnswerCount.text.toString()
+            .toInt() + binding.tvWrongAnswerCount.text.toString()
+            .toInt() + binding.tvSkipAnswerCount.text.toString().toInt()
+        var scoretemp: Int
+
+        var count = 10
+        while (count >= 0) {
+            scoretemp = binding.tvCorrectAnswerCount.text.toString()
                 .toInt() + binding.tvWrongAnswerCount.text.toString()
                 .toInt() + binding.tvSkipAnswerCount.text.toString().toInt()
-            var scoretemp: Int
+            if (score != scoretemp) {
 
-            var count = 10
-            while (count >= 0) {
-                scoretemp = binding.tvCorrectAnswerCount.text.toString()
-                    .toInt() + binding.tvWrongAnswerCount.text.toString()
-                    .toInt() + binding.tvSkipAnswerCount.text.toString().toInt()
-                if (score != scoretemp) {
-                    runOnUiThread{
-                        binding.tvTimer.setTextColor(getColorStateList(R.color.black))
-                        binding.tvTextTimer.setTextColor(getColorStateList(R.color.black))
-                    }
-                    break
-                }
-                if(count == 3){
-                    runOnUiThread{
-                        binding.tvTimer.setTextColor(getColorStateList(R.color.wrongVariantValue))
-                        binding.tvTextTimer.setTextColor(getColorStateList(R.color.wrongVariantValue))
-                    }
-                }
-                runOnUiThread {
-                    binding.tvTimer.text = count.toString()
-                }
-                Thread.sleep(1000)
-                count--
+                binding.tvTimer.setTextColor(getColorStateList(R.color.black))
+                binding.tvTextTimer.setTextColor(getColorStateList(R.color.black))
+
+                break
             }
-            if (count < 0) {
-                runOnUiThread {
-                    binding.llAnswer1.isEnabled = false
-                    binding.llAnswer2.isEnabled = false
-                    binding.llAnswer3.isEnabled = false
-                    binding.llAnswer4.isEnabled = false
+            if (count == 3) {
 
-                }
+                binding.tvTimer.setTextColor(getColorStateList(R.color.wrongVariantValue))
+                binding.tvTextTimer.setTextColor(getColorStateList(R.color.wrongVariantValue))
+
+            }
+
+            binding.tvTimer.text = count.toString()
+            delay(1000)
+            count--
+        }
+        if (count < 0) {
+            runOnUiThread {
+                binding.llAnswer1.isEnabled = false
+                binding.llAnswer2.isEnabled = false
+                binding.llAnswer3.isEnabled = false
+                binding.llAnswer4.isEnabled = false
+
             }
         }
+
     }
 
     private fun jumpToResults(score: ScoreAnswer, choice: String?) {
@@ -383,6 +382,8 @@ class MainActivity : AppCompatActivity() {
         binding.llAnswer2.isEnabled = true
         binding.llAnswer3.isEnabled = true
         binding.llAnswer4.isEnabled = true
+        binding.tvTimer.setTextColor(getColorStateList(R.color.black))
+        binding.tvTextTimer.setTextColor(getColorStateList(R.color.black))
         binding.tvQuestionWord.text = key
         binding.tvVariantValue1.text = list[0]
         binding.tvVariantValue2.text = list[1]
@@ -393,7 +394,7 @@ class MainActivity : AppCompatActivity() {
         binding.tvWrongAnswerCount.text = score.wrongAnswerQuestions.toString()
         binding.tvSkipAnswerCount.text = score.skipAnswerQuestions.toString()
         informationEmergence()
-        timerStart()
+        lifecycleScope.launch { timerStart() }
     }
 
     private fun <T, U> Map<T, U>.random(): Map.Entry<T, U> = entries.elementAt(random.nextInt(size))
